@@ -19,14 +19,9 @@ module tt_um_algofoogle_tt10_vga_test (
   // VGA signals
   wire hsync;
   wire vsync;
-  wire [7:0] A;
   wire [7:0] R;
   wire [7:0] G;
   wire [7:0] B;
-  wire video_active;
-  wire [9:0] pix_x;
-  wire [9:0] pix_y;
-  wire sound;
 
   // TinyVGA PMOD
   assign uo_out = {hsync, B[6], G[6], R[6], vsync, B[7], G[7], R[7]};
@@ -35,7 +30,7 @@ module tt_um_algofoogle_tt10_vga_test (
   assign uio_oe  = 8'b11111111; // All outputs.
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, uio_in, ui_in[7:2], 1'b0};
+  wire _unused = &{uio_in, ui_in[7:2], 1'b0};
 
   wire [31:0] rgba;
 
@@ -57,7 +52,8 @@ module tt_um_algofoogle_tt10_vga_test (
     osel == 0 ? R :
     osel == 1 ? G :
     osel == 2 ? B :
-                R^G^B;
+                8'd0;
+                // R^G^B;
 
 endmodule
 
@@ -171,10 +167,6 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
   (patmode == 6) ? wobble[8] : //hpos > (sine_signal>>5)+300 : // Munching squares
   0;
   
-  //wire r = (((hpos&8)==0) || ((vpos&8)==0));
-  wire g = vpos[4];
-  wire b = hpos[4];
-  
   wire [7:0] grid = 0 ? 0 : {8{patn}};
   
   //wire [9:0] vdrift = vpos+tm[9:0];
@@ -194,7 +186,7 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
   
   wire [15:0] noise;
   
-  wire [7:0] rr,gg,bb,aa;
+  wire [7:0] gg,bb;
 
   reg [19:0] tm;
   reg [9:0] y_prv;
@@ -249,82 +241,56 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
   0;
   
   worley_noise_generator pattern(
-    .clk(clk),
     .inx(inx),
     .iny(iny),
     .t(t),
     //.distort(wobble[9:0]),
     .distort({2'd0,ww[7:0]}|wobble[9:0]),
     .noise(noise),
-    .r(rr),
     .g(gg),
-    .b(bb),
-    .a(aa)
+    .b(bb)
   );
 
 endmodule
 
 module worley_noise_generator (
-  input wire clk,
+  // input wire clk,
   input wire [9:0] inx,
   input wire [9:0] iny,
   input wire [19:0] t,
   input wire [9:0] distort,
   output reg [15:0] noise,
-  output reg [7:0] r,
   output reg [7:0] g,
-  output reg [7:0] b,
-  output reg [7:0] a
+  output reg [7:0] b
 );
 
   // Define a small fixed grid of points
-  reg [8:0] points_x[0:3];
-  reg [8:0] points_y[0:3];
+  reg [8:0] points_x[0:1];
+  reg [8:0] points_y[0:1];
   
-  wire [9:0] x = inx;//{2'b0,inx[9:2]};
-  wire [9:0] y = iny;//-x+t[9:0]; //{3'b0,iny[9:3]} + {8'b0,x[1:0]};
+  wire [9:0] sx = inx;//{2'b0,inx[9:2]};
+  wire [9:0] sy = iny;//-x+t[9:0]; //{3'b0,iny[9:3]} + {8'b0,x[1:0]};
 
 
-  //assign points_x[0] = 9'd100 + t[8:0];
-  //assign points_y[0] = 9'd100 - t[8:0];
-  assign points_x[1] = 9'd300 - t[9:1];
-  assign points_y[1] = 9'd200 + t[9:1];
-  assign points_x[2] = 9'd100 + t[8:0];
-  assign points_y[2] = 9'd400 - t[9:1];
-  //assign points_x[3] = 9'd100 - t[11:3];
-  //assign points_y[3] = 9'd500 - t[10:2];
+  assign points_x[0] = 9'd300 - t[9:1];
+  assign points_y[0] = 9'd200 + t[9:1];
+  assign points_x[1] = 9'd100 + t[8:0];
+  assign points_y[1] = 9'd400 - t[9:1];
 
-  wire [9:0] diag = x;//>>4);//*x[9:6]);
+  wire [9:0] diag = sx;
   
-  wire [23:0] gap = diag*y-{14'b0,x}+{4'b0,t}; // xor is good on t
+  wire [23:0] gap = diag*sy-{14'b0,sx}+{4'b0,t}; // xor is good on t
   
-  wire [9:0] subgap = gap[17:8]+y;//|diag;
+  wire [9:0] subgap = gap[17:8]+sy;//|diag;
 
   
-  wire [15:0] distance1 = 0;// * ({6'b0,x} - {7'b0,points_x[0]}) & ({6'b0,x} - {7'b0,points_x[0]}) + ({6'b0,y} - {7'b0,points_y[0]}) * ({6'b0,y} - {7'b0,points_y[0]});
-  //wire [15:0] distance4 = x*y;
-  wire [15:0] distance2 = ({6'b0,x} - {7'b0,points_x[1]}) * ({6'b0,y} - {7'b0,points_x[1]}) - ({6'b0,y} - {7'b0,points_y[1]}) * ({6'b0,subgap-distort+t[9:0]} - {7'b0,points_y[1]});
-  wire [15:0] distance3 = ({6'b0,y} - {7'b0,points_x[2]}) * ({6'b0,x} + {7'b0,points_x[2]}) + ({6'b0,x} - {7'b0,points_y[2]}) * ({6'b0,subgap+distort+t[9:0]} - {7'b0,points_y[2]});
-  //wire [15:0] distance4 = 0 * ({6'b0,x} - {7'b0,points_x[3]}) ^ ({6'b0,x} - {7'b0,points_x[3]}) + ({6'b0,y} - {7'b0,points_y[3]}) * ({6'b0,y} - {7'b0,points_y[3]});
+  wire [15:0] distance2 = ({6'b0,sx} - {7'b0,points_x[0]}) * ({6'b0,sy} - {7'b0,points_x[0]}) - ({6'b0,sy} - {7'b0,points_y[0]}) * ({6'b0,subgap-distort+t[9:0]} - {7'b0,points_y[0]});
+  wire [15:0] distance3 = ({6'b0,sy} - {7'b0,points_x[1]}) * ({6'b0,sx} + {7'b0,points_x[1]}) + ({6'b0,sx} - {7'b0,points_y[1]}) * ({6'b0,subgap+distort+t[9:0]} - {7'b0,points_y[1]});
   wire [15:0] min_dist = distance2 < distance3 ? distance2 : distance3;
-//    (distance1 < distance2) ? 
-//      (distance1 < distance3) ? distance1 : distance3 :
-//      (distance2 < distance3) ? distance2 : distance3;
-//        (distance2 < distance4) ? distance2 : distance4 :
-  //      (distance3 < distance4) ? distance3 : distance4;
-
-  wire [10:0] xx = {x,1'b0};
   
   assign noise = ~min_dist;  // Scale down to 8-bit value
-  assign r = ~distance1[15:8];
   assign g = ~distance2[15:8];
-  //assign b = /*(t[9:0]-y) < (x[9:0]-y) ?*/ (t[7:0]+distance2[15:8]&distance3[15:8]) ^ distance3[15:8] + (distance2[15:8]+distance3[15:8])>>1;// : 0;
-  assign b = /*(t[9:0]-y) < (x[9:0]-y) ?*/ 
-    //(xx>(y+t[9:0]-100) && xx<(y+t[9:0]+100) ) ?
-    ///*distance2[15:8]^distance3[15:8]+*/(distance4[15:8]+distance3[15:8])>>1 :
-    distance3[15:8];// + (distance2[15:8]+distance3[15:8])>>1;// : 0;
-  assign a = 8'hFF;
-  //assign a = distance3[10:3];
+  assign b =  distance3[15:8];
   
 endmodule
 
