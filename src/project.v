@@ -30,21 +30,21 @@ module tt_um_algofoogle_tt10_vga_test (
   assign uio_oe  = 8'b11111111; // All outputs.
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{uio_in, ui_in[7:2], 1'b0};
+  wire _unused = &{ena, uio_in, ui_in[7:2], 1'b0};
 
-  wire [31:0] rgba;
+  wire [23:0] rgb;
 
   test_hvsync_top demo(
     .clk(clk),
     .reset(~rst_n),
     .hsync(hsync),
     .vsync(vsync),
-    .rgb(rgba)
+    .rgb(rgb)
   );
 
-  assign R = rgba[23:16];
-  assign G = rgba[15:8];
-  assign B = rgba[7:0];
+  assign R = rgb[23:16];
+  assign G = rgb[15:8];
+  assign B = rgb[7:0];
 
   wire [1:0] osel = ui_in[1:0];
 
@@ -121,7 +121,7 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
 
   input clk, reset;
   output hsync, vsync;
-  output [31:0] rgb;
+  output [23:0] rgb;
   wire display_on;
   wire [9:0] hpos;
   wire [9:0] vpos;
@@ -173,9 +173,7 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
   
   wire mixnoise = 0;
   
-  assign rgb = {32{display_on}} & {
-    // Alpha:
-    8'hff,
+  assign rgb = {24{display_on}} & {
     // Blue:
     (mixnoise ? noise[15:8] : 8'h00) ^ ((bb ^ grid) ^ (ww)), //(rr & {noise[15:8]}) + bb,// | aa,// & aa),// & (hpos<320 ? ~hpos[9:2] : hpos[9:2]),
     // Green:
@@ -254,12 +252,11 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
 endmodule
 
 module worley_noise_generator (
-  // input wire clk,
   input wire [9:0] inx,
   input wire [9:0] iny,
   input wire [19:0] t,
   input wire [9:0] distort,
-  output reg [15:0] noise,
+  output [15:0] noise,
   output reg [7:0] g,
   output reg [7:0] b
 );
@@ -314,7 +311,7 @@ module sine_wave_generator (
     localparam D_MAX = 11'd30;
     localparam D_MIN = 11'd30;
 
-    always @(posedge clk or posedge reset) begin
+    always @(posedge clk) begin
         if (reset) begin
             signal <= init;
             addend <= 11'd0;
