@@ -1,17 +1,17 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  title:        "tt10-vga-TEST"      # Project title
+  author:       "algofoogle (Anton Maurovic)"      # Your name
+  discord:      "algofoogle"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "Just some experiments in pretty VGA demos intended for 24-bit colour output"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:    25_000_000       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  tiles: "8x2"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_um_algofoogle_tt10_vga_test"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
@@ -22,8 +22,8 @@ project:
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
+  ui[0]: "osel0"
+  ui[1]: "osel1"
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""
@@ -32,24 +32,25 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  # These are compatible with the RGB222 Tiny VGA PMOD (https://github.com/mole99/tiny-vga)
+  uo[0]: "r7"
+  uo[1]: "g7"
+  uo[2]: "b7"
+  uo[3]: "vsync"
+  uo[4]: "r6"
+  uo[5]: "g6"
+  uo[6]: "b6"
+  uo[7]: "hsync"
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "c0"
+  uio[1]: "c1"
+  uio[2]: "c2"
+  uio[3]: "c3"
+  uio[4]: "c4"
+  uio[5]: "c5"
+  uio[6]: "c6"
+  uio[7]: "c7"
 
 # Do not change!
 yaml_version: 6

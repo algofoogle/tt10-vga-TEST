@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+Uses a bunch of digital logic to create funky 24-bit VGA pattern outputs internally, then selects subsets of those outputs to make available on the various TT IOs depending on selections specified by `ui_in[1:0]`. Mainly intended to test synthesis and final logic size (rather than to actually submit).
 
 ## How to test
 
-Explain how to use your project
+Supply a ~25MHz clock, connect Tiny VGA PMOD (or similar) to `uo_out`, and select which optional colour bank you want to output via `ui_in[1:0]`.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Tiny VGA PMOD.
