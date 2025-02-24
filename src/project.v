@@ -30,13 +30,16 @@ module tt_um_algofoogle_tt10_vga_test (
   assign uio_oe  = 8'b11111111; // All outputs.
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, uio_in, ui_in[7:2], 1'b0};
+  wire _unused = &{ena, uio_in, ui_in[7], 1'b0};
 
   wire [23:0] rgb;
 
   test_hvsync_top demo(
     .clk(clk),
     .reset(~rst_n),
+    .inymode(ui_in[4:2]),
+    .mixnoise(ui_in[5]),
+    .usewobble(ui_in[6]),
     .hsync(hsync),
     .vsync(vsync),
     .rgb(rgb)
@@ -59,67 +62,10 @@ endmodule
 
 
 
-module hvsync_generator(clk, reset, hsync, vsync, display_on, hpos, vpos);
+module test_hvsync_top(clk, reset, inymode, mixnoise, usewobble, hsync, vsync, rgb);
 
-  input clk;
-  input reset;
-  output reg hsync, vsync;
-  output display_on;
-  output reg [9:0] hpos;
-  output reg [9:0] vpos;
-
-  // declarations for TV-simulator sync parameters
-  // horizontal constants
-  parameter H_DISPLAY       = 640; // horizontal display width
-  parameter H_BACK          =  48; // horizontal left border (back porch)
-  parameter H_FRONT         =  16; // horizontal right border (front porch)
-  parameter H_SYNC          =  96; // horizontal sync width
-  // vertical constants
-  parameter V_DISPLAY       = 480; // vertical display height
-  parameter V_TOP           =  33; // vertical top border
-  parameter V_BOTTOM        =  10; // vertical bottom border
-  parameter V_SYNC          =   2; // vertical sync # lines
-  // derived constants
-  parameter H_SYNC_START    = H_DISPLAY + H_FRONT;
-  parameter H_SYNC_END      = H_DISPLAY + H_FRONT + H_SYNC - 1;
-  parameter H_MAX           = H_DISPLAY + H_BACK + H_FRONT + H_SYNC - 1;
-  parameter V_SYNC_START    = V_DISPLAY + V_BOTTOM;
-  parameter V_SYNC_END      = V_DISPLAY + V_BOTTOM + V_SYNC - 1;
-  parameter V_MAX           = V_DISPLAY + V_TOP + V_BOTTOM + V_SYNC - 1;
-
-  wire hmaxxed = (hpos == H_MAX) || reset;	// set when hpos is maximum
-  wire vmaxxed = (vpos == V_MAX) || reset;	// set when vpos is maximum
-  
-  // horizontal position counter
-  always @(posedge clk)
-  begin
-    hsync <= (hpos>=H_SYNC_START && hpos<=H_SYNC_END);
-    if(hmaxxed)
-      hpos <= 0;
-    else
-      hpos <= hpos + 1;
-  end
-
-  // vertical position counter
-  always @(posedge clk)
-  begin
-    vsync <= (vpos>=V_SYNC_START && vpos<=V_SYNC_END);
-    if(hmaxxed)
-      if (vmaxxed)
-        vpos <= 0;
-      else
-        vpos <= vpos + 1;
-  end
-  
-  // display_on is set when beam is in "safe" visible frame
-  assign display_on = (hpos<H_DISPLAY) && (vpos<V_DISPLAY);
-
-endmodule
-
-
-module test_hvsync_top(clk, reset, hsync, vsync, rgb);
-
-  input clk, reset;
+  input clk, reset, mixnoise, usewobble;
+  input [2:0] inymode;
   output hsync, vsync;
   output [23:0] rgb;
   wire display_on;
@@ -149,7 +95,7 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
     .signal(sine_signal)
   );
   
-  localparam usewobble = 1;
+  // localparam usewobble = 1;
   
   wire [10:0] wobble =
   usewobble ? {1'b0,((sine_signal>>5)+10'd300)} - {1'b0,hpos} :
@@ -171,7 +117,7 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
   
   //wire [9:0] vdrift = vpos+tm[9:0];
   
-  wire mixnoise = 0;
+  // wire mixnoise = 0;
   
   assign rgb = {24{display_on}} & {
     // Blue:
@@ -200,7 +146,7 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
     end
   end
 
-  localparam inymode = 0;
+  //localparam inymode = 0;
   // 0 = normal flow.
   // 1 = crazy crystals.
   // 2 = feather
@@ -210,19 +156,17 @@ module test_hvsync_top(clk, reset, hsync, vsync, rgb);
   // 6 = bit pattern horizontal interleave
   // 7 = ice shards
   // N = just sines
-  
 
   wire [9:0] iny =
   (0==inymode) ? vpos :
   (1==inymode) ? vpos&{2'd0,ww} :
-  (2==inymode) ? vpos-{2'd0,ww} :
+  (2==inymode) ? 0 :
   (3==inymode) ? vpos|{2'd0,ww} :
   (4==inymode) ? vpos^{2'd0,ww} :
   (5==inymode) ? vpos+{2'd0,ww}<<7 :
   (6==inymode) ? vpos&{2'd0,ww}<<5 :
-  (7==inymode) ? hpos^vpos :
-  0;
-  
+                 hpos^vpos;
+
   localparam timemode = 0;
   
   wire [19:0] t =
@@ -352,5 +296,64 @@ module sine_wave_generator (
             endcase
         end
     end
+
+endmodule
+
+
+
+module hvsync_generator(clk, reset, hsync, vsync, display_on, hpos, vpos);
+
+  input clk;
+  input reset;
+  output reg hsync, vsync;
+  output display_on;
+  output reg [9:0] hpos;
+  output reg [9:0] vpos;
+
+  // declarations for TV-simulator sync parameters
+  // horizontal constants
+  parameter H_DISPLAY       = 640; // horizontal display width
+  parameter H_BACK          =  48; // horizontal left border (back porch)
+  parameter H_FRONT         =  16; // horizontal right border (front porch)
+  parameter H_SYNC          =  96; // horizontal sync width
+  // vertical constants
+  parameter V_DISPLAY       = 480; // vertical display height
+  parameter V_TOP           =  33; // vertical top border
+  parameter V_BOTTOM        =  10; // vertical bottom border
+  parameter V_SYNC          =   2; // vertical sync # lines
+  // derived constants
+  parameter H_SYNC_START    = H_DISPLAY + H_FRONT;
+  parameter H_SYNC_END      = H_DISPLAY + H_FRONT + H_SYNC - 1;
+  parameter H_MAX           = H_DISPLAY + H_BACK + H_FRONT + H_SYNC - 1;
+  parameter V_SYNC_START    = V_DISPLAY + V_BOTTOM;
+  parameter V_SYNC_END      = V_DISPLAY + V_BOTTOM + V_SYNC - 1;
+  parameter V_MAX           = V_DISPLAY + V_TOP + V_BOTTOM + V_SYNC - 1;
+
+  wire hmaxxed = (hpos == H_MAX) || reset;	// set when hpos is maximum
+  wire vmaxxed = (vpos == V_MAX) || reset;	// set when vpos is maximum
+  
+  // horizontal position counter
+  always @(posedge clk)
+  begin
+    hsync <= (hpos>=H_SYNC_START && hpos<=H_SYNC_END);
+    if(hmaxxed)
+      hpos <= 0;
+    else
+      hpos <= hpos + 1;
+  end
+
+  // vertical position counter
+  always @(posedge clk)
+  begin
+    vsync <= (vpos>=V_SYNC_START && vpos<=V_SYNC_END);
+    if(hmaxxed)
+      if (vmaxxed)
+        vpos <= 0;
+      else
+        vpos <= vpos + 1;
+  end
+  
+  // display_on is set when beam is in "safe" visible frame
+  assign display_on = (hpos<H_DISPLAY) && (vpos<V_DISPLAY);
 
 endmodule
