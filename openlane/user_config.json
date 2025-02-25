@@ -1,0 +1,8 @@
+{
+  "DESIGN_NAME": "tt_um_algofoogle_tt10_vga_test",
+  "VERILOG_FILES": [
+    "dir::core_design.v"
+  ],
+  "DIE_AREA": "0 0 334.88 225.76",
+  "FP_DEF_TEMPLATE": "dir::../tt/def/tt_block_2x2_pg.def"
+}
