@@ -23,17 +23,18 @@
   "RT_MAX_LAYER": "met4",
   "MAGIC_DEF_LABELS": 0,
   "MAGIC_WRITE_LEF_PINONLY": 1,
-  "DESIGN_NAME": "algofoogle_tt10_vga_test_digital",
+  "DESIGN_NAME": "analog_control_wrapper",
   "VERILOG_FILES": [
-    "dir::src/core_design.v"
+    "dir::src/core_design.v",
+    "dir::src/analog_control_wrapper.v"
   ],
   "DIE_AREA": "0 0 315 205",
   "FP_PIN_ORDER_CFG": "dir::openlane/pin_order.cfg",
-  "FP_OBSTRUCTIONS": [[
+  "//FP_OBSTRUCTIONS": [[
     160, 0,
     315, 100
   ]],
-  "ROUTING_OBSTRUCTIONS": [
+  "//ROUTING_OBSTRUCTIONS": [
     "met1 160 0 315 100",
     "met2 160 0 315 100",
     "met3 160 0 315 100",
