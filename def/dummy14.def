@@ -1,0 +1,284 @@
+VERSION 5.7 ;
+   NAMESCASESENSITIVE ON ;
+   DIVIDERCHAR "/" ;
+   BUSBITCHARS "()" ;
+   DESIGN dummy3 ;
+   TECHNOLOGY sky130A ;
+   UNITS DISTANCE MICRONS 1000 ;
+   DIEAREA ( 0 0 ) ( 315000 205000 ) ;
+
+VIAS 0 ;
+END VIAS
+
+COMPONENTS 0 ;
+END COMPONENTS
+
+PINS 88 ;
+   - uio_oe[7] + NET uio_oe[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 20470 204000 ) N ;
+   - uio_oe[6] + NET uio_oe[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 23230 204000 ) N ;
+   - uio_oe[5] + NET uio_oe[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 25990 204000 ) N ;
+   - uio_oe[4] + NET uio_oe[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 28750 204000 ) N ;
+   - uio_oe[3] + NET uio_oe[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 31510 204000 ) N ;
+   - uio_oe[2] + NET uio_oe[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 34270 204000 ) N ;
+   - uio_oe[1] + NET uio_oe[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 37030 204000 ) N ;
+   - uio_oe[0] + NET uio_oe[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 39790 204000 ) N ;
+   - uio_out[7] + NET uio_out[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 42550 204000 ) N ;
+   - uio_out[6] + NET uio_out[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 45310 204000 ) N ;
+   - uio_out[5] + NET uio_out[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 48070 204000 ) N ;
+   - uio_out[4] + NET uio_out[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 50830 204000 ) N ;
+   - uio_out[3] + NET uio_out[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 53590 204000 ) N ;
+   - uio_out[2] + NET uio_out[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 56350 204000 ) N ;
+   - uio_out[1] + NET uio_out[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 59110 204000 ) N ;
+   - uio_out[0] + NET uio_out[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 61870 204000 ) N ;
+   - uo_out[7] + NET uo_out[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 64630 204000 ) N ;
+   - uo_out[6] + NET uo_out[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 67390 204000 ) N ;
+   - uo_out[5] + NET uo_out[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 70150 204000 ) N ;
+   - uo_out[4] + NET uo_out[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 72910 204000 ) N ;
+   - uo_out[3] + NET uo_out[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 75670 204000 ) N ;
+   - uo_out[2] + NET uo_out[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 78430 204000 ) N ;
+   - uo_out[1] + NET uo_out[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 81190 204000 ) N ;
+   - uo_out[0] + NET uo_out[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 83950 204000 ) N ;
+   - uio_in[7] + NET uio_in[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 86710 204000 ) N ;
+   - uio_in[6] + NET uio_in[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 89470 204000 ) N ;
+   - uio_in[5] + NET uio_in[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 92230 204000 ) N ;
+   - uio_in[4] + NET uio_in[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 94990 204000 ) N ;
+   - uio_in[3] + NET uio_in[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 97750 204000 ) N ;
+   - uio_in[2] + NET uio_in[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 100510 204000 ) N ;
+   - uio_in[1] + NET uio_in[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 103270 204000 ) N ;
+   - uio_in[0] + NET uio_in[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 106030 204000 ) N ;
+   - ui_in[7] + NET ui_in[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 108790 204000 ) N ;
+   - ui_in[6] + NET ui_in[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 111550 204000 ) N ;
+   - ui_in[5] + NET ui_in[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 114310 204000 ) N ;
+   - ui_in[4] + NET ui_in[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 117070 204000 ) N ;
+   - ui_in[3] + NET ui_in[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 119830 204000 ) N ;
+   - ui_in[2] + NET ui_in[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 122590 204000 ) N ;
+   - ui_in[1] + NET ui_in[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 125350 204000 ) N ;
+   - ui_in[0] + NET ui_in[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 128110 204000 ) N ;
+   - rst_n + NET rst_n
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 130870 204000 ) N ;
+   - clk + NET clk
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 133630 204000 ) N ;
+   - ena + NET ena
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 136390 204000 ) N ;
+   - R[0] + NET R[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 126190 36000 ) N ;
+   - R[1] + NET R[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 128110 36000 ) N ;
+   - R[2] + NET R[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 130030 36000 ) N ;
+   - R[3] + NET R[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 132850 36000 ) N ;
+   - R[4] + NET R[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 134370 36000 ) N ;
+   - R[5] + NET R[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 135890 36000 ) N ;
+   - R[6] + NET R[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 141110 36000 ) N ;
+   - R[7] + NET R[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 142030 36000 ) N ;
+   - R[8] + NET R[8]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 142950 36000 ) N ;
+   - R[9] + NET R[9]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 143870 36000 ) N ;
+   - R[10] + NET R[10]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 144790 36000 ) N ;
+   - R[11] + NET R[11]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 145710 36000 ) N ;
+   - G[0] + NET G[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 77890 36000 ) N ;
+   - G[1] + NET G[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 79810 36000 ) N ;
+   - G[2] + NET G[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 81730 36000 ) N ;
+   - G[3] + NET G[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 84550 36000 ) N ;
+   - G[4] + NET G[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 86070 36000 ) N ;
+   - G[5] + NET G[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 87590 36000 ) N ;
+   - G[6] + NET G[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 92810 36000 ) N ;
+   - G[7] + NET G[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 93730 36000 ) N ;
+   - G[8] + NET G[8]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 94650 36000 ) N ;
+   - G[9] + NET G[9]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 95570 36000 ) N ;
+   - G[10] + NET G[10]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 96490 36000 ) N ;
+   - G[11] + NET G[11]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 97410 36000 ) N ;
+   - B[0] + NET B[0]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 29590 36000 ) N ;
+   - B[1] + NET B[1]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 31510 36000 ) N ;
+   - B[2] + NET B[2]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 33430 36000 ) N ;
+   - B[3] + NET B[3]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 36250 36000 ) N ;
+   - B[4] + NET B[4]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 37770 36000 ) N ;
+   - B[5] + NET B[5]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 39290 36000 ) N ;
+   - B[6] + NET B[6]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 44510 36000 ) N ;
+   - B[7] + NET B[7]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 45430 36000 ) N ;
+   - B[8] + NET B[8]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 46350 36000 ) N ;
+   - B[9] + NET B[9]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 47270 36000 ) N ;
+   - B[10] + NET B[10]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 48190 36000 ) N ;
+   - B[11] + NET B[11]
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 49110 36000 ) N ;
+   - Bbias1 + NET Bbias1
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 22430 36000 ) N ;
+   - Bbias2 + NET Bbias2
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 23950 36000 ) N ;
+   - Bbias3 + NET Bbias3
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 25470 36000 ) N ;
+   - Gbias1 + NET Gbias1
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 70730 36000 ) N ;
+   - Gbias2 + NET Gbias2
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 72250 36000 ) N ;
+   - Gbias3 + NET Gbias3
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 73770 36000 ) N ;
+   - Rbias1 + NET Rbias1
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 118930 36000 ) N ;
+   - Rbias2 + NET Rbias2
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 120450 36000 ) N ;
+   - Rbias3 + NET Rbias3
+     + PORT
+        + LAYER met2 ( -140 -1000 ) ( 140 1000 )        + PLACED ( 121970 36000 ) N ;
+END PINS
+
+END DESIGN
+
