@@ -29,9 +29,7 @@
     "dir::src/analog_control_wrapper.v"
   ],
   "DIE_AREA": "0 0 315 205",
-  "FP_DEF_TEMPLATE": "dir::def/dummy5.def",
-  "//FP_DEF_TEMPLATE": "dir::def/dummy4.def",
-  "//FP_PIN_ORDER_CFG": "dir::openlane/pin_order.cfg",
+  "FP_DEF_TEMPLATE": "dir::def/dummy14.def",
   "FP_OBSTRUCTIONS": [[
     0, 0,
     160, 35.4
@@ -44,5 +42,7 @@
   ],
   "PDN_OBSTRUCTIONS": [
     "met4 0 0 160 35.4"
-  ]
+  ],
+
+  "////FP_PIN_ORDER_CFG": "dir::openlane/pin_order.cfg"
 }

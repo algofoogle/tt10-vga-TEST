@@ -17,10 +17,10 @@ module analog_control_wrapper (
     output wire [11:0] R, // 4 segments, 3 each, thermo-coded: R[11:9]<-red[7:6], R[8:6]<-red[5:4], etc.
     output wire [11:0] G,
     output wire [11:0] B,
-    // Vbias controls (all are copies of each other):
-    output wire [2:0] Rvb,
-    output wire [2:0] Gvb,
-    output wire [2:0] Bvb
+    // Vbias controls (the R/G/B colour channels' biases are copies of each other):
+    output wire Rbias1, Rbias2, Rbias3,
+    output wire Gbias1, Gbias2, Gbias3,
+    output wire Bbias1, Bbias2, Bbias3
 );
 
     // VGA signals
@@ -44,10 +44,13 @@ module analog_control_wrapper (
     // List all unused inputs to prevent warnings
     wire _unused = &{ena, uio_in, ui_in[7:5], 1'b0};
 
-    wire [2:0] vbias = ui_in[7:5];
-    assign Rvb = vbias;
-    assign Gvb = vbias;
-    assign Bvb = vbias;
+    wire bias1 = ui_in[5];
+    wire bias2 = ui_in[6];
+    wire bias3 = ui_in[7];
+
+    assign {Rbias1,Rbias2,Rbias3} = {bias1,bias2,bias3};
+    assign {Gbias1,Gbias2,Gbias3} = {bias1,bias2,bias3};
+    assign {Bbias1,Bbias2,Bbias3} = {bias1,bias2,bias3};
     wire usewobble      = ui_in[4];
     wire mixnoise       = ui_in[3];
     wire [2:0] inymode  = ui_in[2:0];
@@ -63,10 +66,12 @@ module analog_control_wrapper (
         .rgb        (rgb)
     );
 
-    // 4 instances (i.e. 4 segments) per each channel:
-    thermo2bit decode_r[0:3] ( .bin(rgb[ 7: 0]), .thermo(R) );
-    thermo2bit decode_g[0:3] ( .bin(rgb[15: 8]), .thermo(G) );
-    thermo2bit decode_b[0:3] ( .bin(rgb[23:16]), .thermo(B) );
+    // 4 instances (i.e. 4 segments) per each channel...
+    // Note that the RGB outputs from the controller get negated here,
+    // since the segdacs use NFETs (sink current, rather than sourcing).
+    thermo2bit decode_r[3:0] ( .bin(~rgb[ 7: 0]), .thermo(R) );
+    thermo2bit decode_g[3:0] ( .bin(~rgb[15: 8]), .thermo(G) );
+    thermo2bit decode_b[3:0] ( .bin(~rgb[23:16]), .thermo(B) );
 
 endmodule
 
